@@ -38,7 +38,7 @@ const EMAIL = "electricalsengineeringworks@gmail.com";
 const LOCATION = "Thane, Maharashtra";
 
 export default function ServicesSection() {
-  const [view, setView] = useState<ViewMode>("grid");
+  const [view, setView] = useState<ViewMode>("list");
   const [category, setCategory] = useState<Category>("All");
   const [search, setSearch] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -252,16 +252,18 @@ export default function ServicesSection() {
         </motion.div>
 
         {/* Footer */}
-        <div className="flex flex-col items-center gap-3 pb-4">
+        <div className="rounded-xl overflow-hidden">
           <div className="w-full h-px bg-blue-200" />
-          <a
-            href="https://eew.netlify.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm font-semibold text-[#0c4a6e] hover:text-sky-500 transition-colors tracking-wide"
-          >
-            WWW.EEW.com
-          </a>
+          <div className="bg-gray-100 flex items-center justify-center py-3">
+            <a
+              href="https://eew.netlify.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm font-semibold text-[#0c4a6e] hover:text-sky-500 transition-colors tracking-wide"
+            >
+              www.eew.com
+            </a>
+          </div>
         </div>
 
         <div className="h-20" />
