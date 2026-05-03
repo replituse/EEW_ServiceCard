@@ -8,7 +8,7 @@ import eewLogo from "/eew-logo.png";
 
 const EXPERTISE = [
   { id: 1, title: "GA Drawing", category: "Expertise", description: "General Arrangement drawings for accurate layout planning of electrical panels and components.", icon: "FileText" },
-  { id: 2, title: "IGA Drawing", category: "Expertise", description: "Instrument and General Arrangement drawings for precise instrumentation and equipment placement.", icon: "Layers" },
+  { id: 2, title: "IGA Drawing", category: "Expertise", description: "Internal and General Arrangement drawings for precise instrumentation and equipment placement.", icon: "Layers" },
   { id: 3, title: "Power Wiring Drawing", category: "Expertise", description: "Detailed power wiring schematics ensuring safe and efficient electrical power distribution.", icon: "Zap" },
   { id: 4, title: "Control Wiring Drawing", category: "Expertise", description: "Control circuit diagrams for automation, interlocking, and protection of electrical systems.", icon: "GitBranch" },
   { id: 5, title: "Terminal Drawing", category: "Expertise", description: "Terminal block layouts and wiring details for clean and organized panel connections.", icon: "Cpu" },
