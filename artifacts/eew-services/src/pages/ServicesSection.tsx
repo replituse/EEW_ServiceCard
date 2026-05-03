@@ -251,6 +251,19 @@ export default function ServicesSection() {
           </div>
         </motion.div>
 
+        {/* Footer */}
+        <div className="flex flex-col items-center gap-3 pb-4">
+          <div className="w-full h-px bg-blue-200" />
+          <a
+            href="https://eew.netlify.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-semibold text-[#0c4a6e] hover:text-sky-500 transition-colors tracking-wide"
+          >
+            WWW.EEW.com
+          </a>
+        </div>
+
         <div className="h-20" />
       </main>
 
