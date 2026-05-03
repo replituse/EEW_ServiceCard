@@ -1,8 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, MapPin, Phone, Mail, MessageCircle, Grid3X3, List } from "lucide-react";
 import ServiceCard from "@/components/ServiceCard";
 import FloatingButtons from "@/components/FloatingButtons";
+import SideMenu from "@/components/SideMenu";
 import eewLogo from "/eew-logo.png";
 
 const EXPERTISE = [
@@ -40,6 +41,8 @@ export default function ServicesSection() {
   const [view, setView] = useState<ViewMode>("grid");
   const [category, setCategory] = useState<Category>("All");
   const [search, setSearch] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const topRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(() => {
     let list = ALL_SERVICES;
@@ -58,21 +61,51 @@ export default function ServicesSection() {
     show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
   };
 
+  function scrollToTop() {
+    topRef.current?.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50">
+    <div ref={topRef} className="relative min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50">
+      {/* Side Menu */}
+      <SideMenu
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        onSelectCategory={(cat) => {
+          setCategory(cat);
+          setSearch("");
+        }}
+      />
+
       {/* Header */}
-      <header className="bg-white border-b border-blue-100 shadow-sm sticky top-0 z-30">
+      <header className="bg-white border-b border-blue-100 shadow-sm sticky top-0 z-30 overflow-visible">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
-          <div>
-            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0c4a6e] leading-tight">Our Services</h1>
-            <p className="text-xs sm:text-sm text-[#0c4a6e] font-semibold mt-0.5 tracking-wide">Electrical Engineering Works</p>
-          </div>
-          <img
-            src={eewLogo}
-            alt="EEW Logo"
-            className="h-20 w-20 sm:h-24 sm:w-24 object-contain flex-shrink-0 drop-shadow-md"
-            style={{ marginTop: "-8px", marginBottom: "-8px" }}
-          />
+          {/* Clickable title → scroll to top */}
+          <button
+            onClick={scrollToTop}
+            className="text-left group"
+          >
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0c4a6e] leading-tight group-hover:text-sky-600 transition-colors">
+              Our Services
+            </h1>
+            <p className="text-xs sm:text-sm text-[#0c4a6e] font-semibold mt-0.5 tracking-wide">
+              Electrical Engineering Works
+            </p>
+          </button>
+
+          {/* Clickable logo → opens side menu */}
+          <button
+            onClick={() => setMenuOpen(true)}
+            className="flex-shrink-0 rounded-full hover:ring-2 hover:ring-sky-400 hover:ring-offset-2 transition-all active:scale-95"
+            title="Open menu"
+          >
+            <img
+              src={eewLogo}
+              alt="EEW Logo"
+              className="h-20 w-20 sm:h-24 sm:w-24 object-contain drop-shadow-md"
+              style={{ marginTop: "-8px", marginBottom: "-8px" }}
+            />
+          </button>
         </div>
       </header>
 
@@ -92,14 +125,16 @@ export default function ServicesSection() {
           </div>
 
           {/* Category + View row */}
-          <div className="flex items-center gap-2 flex-wrap">
-            {/* Category Filter */}
+          <div className="flex items-center gap-2">
+            {/* Category Filter — fit all labels */}
             <div className="flex rounded-xl overflow-hidden border border-blue-200 bg-white shadow-sm flex-1 min-w-0">
               {(["All", "Expertise", "Panel Types"] as Category[]).map(cat => (
                 <button
                   key={cat}
                   onClick={() => setCategory(cat)}
-                  className={`flex-1 px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium transition-colors truncate ${category === cat ? "bg-[#0c4a6e] text-white" : "text-slate-600 hover:bg-sky-50"}`}
+                  className={`flex-1 px-1 py-2 text-[10px] sm:text-xs md:text-sm font-semibold transition-colors leading-tight ${
+                    category === cat ? "bg-[#0c4a6e] text-white" : "text-slate-600 hover:bg-sky-50"
+                  }`}
                 >
                   {cat}
                 </button>
@@ -111,7 +146,7 @@ export default function ServicesSection() {
               <button
                 onClick={() => setView("grid")}
                 title="Grid View"
-                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors ${view === "grid" ? "bg-sky-500 text-white" : "text-slate-500 hover:bg-sky-50"}`}
+                className={`flex items-center gap-1 px-2.5 py-2 text-sm font-medium transition-colors ${view === "grid" ? "bg-sky-500 text-white" : "text-slate-500 hover:bg-sky-50"}`}
               >
                 <Grid3X3 className="w-4 h-4" />
                 <span className="hidden sm:inline text-xs">Grid</span>
@@ -119,7 +154,7 @@ export default function ServicesSection() {
               <button
                 onClick={() => setView("list")}
                 title="List View"
-                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors ${view === "list" ? "bg-sky-500 text-white" : "text-slate-500 hover:bg-sky-50"}`}
+                className={`flex items-center gap-1 px-2.5 py-2 text-sm font-medium transition-colors ${view === "list" ? "bg-sky-500 text-white" : "text-slate-500 hover:bg-sky-50"}`}
               >
                 <List className="w-4 h-4" />
                 <span className="hidden sm:inline text-xs">List</span>
@@ -172,7 +207,6 @@ export default function ServicesSection() {
 
           <div className="bg-white px-4 sm:px-6 py-4 sm:py-6">
             <div className="flex flex-col gap-4">
-              {/* Info */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm text-slate-600">
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-sky-500 flex-shrink-0" />
@@ -188,7 +222,6 @@ export default function ServicesSection() {
                 </div>
               </div>
 
-              {/* Action buttons */}
               <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-row sm:gap-3">
                 <a
                   href={`tel:${PHONE_RAW}`}
@@ -218,11 +251,9 @@ export default function ServicesSection() {
           </div>
         </motion.div>
 
-        {/* Bottom spacer so FAB doesn't overlap content */}
         <div className="h-20" />
       </main>
 
-      {/* Floating Buttons (WhatsApp + Phone) */}
       <FloatingButtons phone={PHONE_RAW} />
     </div>
   );
