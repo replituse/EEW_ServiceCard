@@ -251,25 +251,22 @@ export default function ServicesSection() {
           </div>
         </motion.div>
 
-        {/* Footer */}
-        <div className="rounded-xl overflow-hidden">
-          <div className="w-full h-px bg-blue-200" />
-          <div className="bg-gray-100 flex items-center justify-center py-3">
-            <a
-              href="https://eew.netlify.app"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-semibold text-[#0c4a6e] hover:text-sky-500 transition-colors tracking-wide"
-            >
-              www.eew.com
-            </a>
-          </div>
-        </div>
-
-        <div className="h-20" />
+        <div className="h-24" />
       </main>
 
       <FloatingButtons phone={PHONE_RAW} />
+
+      {/* Fixed bottom footer */}
+      <div className="fixed bottom-0 left-0 right-0 z-20 border-t border-blue-200 bg-gray-100 flex items-center justify-center py-2">
+        <a
+          href="https://eew.netlify.app"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xs sm:text-sm font-semibold text-[#0c4a6e] hover:text-sky-500 transition-colors tracking-wide"
+        >
+          www.eew.com
+        </a>
+      </div>
     </div>
   );
 }
