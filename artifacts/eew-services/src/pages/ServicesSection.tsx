@@ -70,7 +70,8 @@ export default function ServicesSection() {
           <img
             src={eewLogo}
             alt="EEW Logo"
-            className="h-14 w-14 sm:h-16 sm:w-16 object-contain flex-shrink-0 drop-shadow-md"
+            className="h-20 w-20 sm:h-24 sm:w-24 object-contain flex-shrink-0 drop-shadow-md"
+            style={{ marginTop: "-8px", marginBottom: "-8px" }}
           />
         </div>
       </header>
