@@ -2,8 +2,8 @@ import { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, MapPin, Phone, Mail, MessageCircle, Grid3X3, List } from "lucide-react";
 import ServiceCard from "@/components/ServiceCard";
-import FloatingWhatsApp from "@/components/FloatingWhatsApp";
-import logo from "/eew-logo.png";
+import FloatingButtons from "@/components/FloatingButtons";
+import eewLogo from "/eew-logo.png";
 
 const EXPERTISE = [
   { id: 1, title: "GA Drawing", category: "Expertise", description: "General Arrangement drawings for accurate layout planning of electrical panels and components.", icon: "FileText" },
@@ -31,8 +31,8 @@ const ALL_SERVICES = [...EXPERTISE, ...PANELS];
 type ViewMode = "grid" | "list";
 type Category = "All" | "Expertise" | "Panel Types";
 
-const PHONE = "+91 7767062794";
 const PHONE_RAW = "917767062794";
+const PHONE_DISPLAY = "+91 7767062794";
 const EMAIL = "electricalsengineeringworks@gmail.com";
 const LOCATION = "Thane, Maharashtra";
 
@@ -50,32 +50,36 @@ export default function ServicesSection() {
 
   const containerVariants = {
     hidden: {},
-    show: { transition: { staggerChildren: 0.07 } },
+    show: { transition: { staggerChildren: 0.06 } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 28 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+    hidden: { opacity: 0, y: 24 },
+    show: { opacity: 1, y: 0, transition: { duration: 0.35, ease: "easeOut" } },
   };
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-sky-50 via-white to-blue-50">
       {/* Header */}
       <header className="bg-white border-b border-blue-100 shadow-sm sticky top-0 z-30">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-3">
           <div>
-            <h1 className="text-2xl sm:text-3xl font-bold text-[#0c4a6e] leading-tight">Our Services</h1>
-            <p className="text-sm text-sky-600 font-medium mt-0.5">Comprehensive Electrical Engineering Solutions</p>
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0c4a6e] leading-tight">Our Services</h1>
+            <p className="text-xs sm:text-sm text-[#0c4a6e] font-semibold mt-0.5 tracking-wide">Electrical Engineering Works</p>
           </div>
-          <img src={logo} alt="EEW Logo" className="h-14 w-14 sm:h-16 sm:w-16 object-contain rounded-full bg-black p-1 shadow-md flex-shrink-0" />
+          <img
+            src={eewLogo}
+            alt="EEW Logo"
+            className="h-14 w-14 sm:h-16 sm:w-16 object-contain flex-shrink-0 drop-shadow-md"
+          />
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+      <main className="max-w-6xl mx-auto px-3 sm:px-4 py-5 sm:py-8 space-y-4 sm:space-y-6">
         {/* Controls */}
-        <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
+        <div className="flex flex-col gap-3">
           {/* Search */}
-          <div className="relative flex-1">
+          <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-sky-400 w-4 h-4" />
             <input
               type="text"
@@ -86,48 +90,42 @@ export default function ServicesSection() {
             />
           </div>
 
-          {/* Category Filter */}
-          <div className="flex rounded-xl overflow-hidden border border-blue-200 bg-white shadow-sm flex-shrink-0">
-            {(["All", "Expertise", "Panel Types"] as Category[]).map(cat => (
-              <button
-                key={cat}
-                onClick={() => setCategory(cat)}
-                className={`px-3 py-2 text-xs sm:text-sm font-medium transition-colors ${category === cat ? "bg-[#0c4a6e] text-white" : "text-slate-600 hover:bg-sky-50"}`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+          {/* Category + View row */}
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Category Filter */}
+            <div className="flex rounded-xl overflow-hidden border border-blue-200 bg-white shadow-sm flex-1 min-w-0">
+              {(["All", "Expertise", "Panel Types"] as Category[]).map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setCategory(cat)}
+                  className={`flex-1 px-2 sm:px-3 py-2 text-xs sm:text-sm font-medium transition-colors truncate ${category === cat ? "bg-[#0c4a6e] text-white" : "text-slate-600 hover:bg-sky-50"}`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
 
-          {/* View Toggle */}
-          <div className="flex rounded-xl overflow-hidden border border-blue-200 bg-white shadow-sm flex-shrink-0">
-            <button
-              onClick={() => setView("grid")}
-              title="Grid View"
-              className={`flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium transition-colors ${view === "grid" ? "bg-sky-500 text-white" : "text-slate-500 hover:bg-sky-50"}`}
-            >
-              <Grid3X3 className="w-4 h-4" />
-              <span className="hidden sm:inline">Grid</span>
-            </button>
-            <button
-              onClick={() => setView("list")}
-              title="List View"
-              className={`flex items-center gap-1.5 px-3 py-2.5 text-sm font-medium transition-colors ${view === "list" ? "bg-sky-500 text-white" : "text-slate-500 hover:bg-sky-50"}`}
-            >
-              <List className="w-4 h-4" />
-              <span className="hidden sm:inline">List</span>
-            </button>
+            {/* View Toggle */}
+            <div className="flex rounded-xl overflow-hidden border border-blue-200 bg-white shadow-sm flex-shrink-0">
+              <button
+                onClick={() => setView("grid")}
+                title="Grid View"
+                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors ${view === "grid" ? "bg-sky-500 text-white" : "text-slate-500 hover:bg-sky-50"}`}
+              >
+                <Grid3X3 className="w-4 h-4" />
+                <span className="hidden sm:inline text-xs">Grid</span>
+              </button>
+              <button
+                onClick={() => setView("list")}
+                title="List View"
+                className={`flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors ${view === "list" ? "bg-sky-500 text-white" : "text-slate-500 hover:bg-sky-50"}`}
+              >
+                <List className="w-4 h-4" />
+                <span className="hidden sm:inline text-xs">List</span>
+              </button>
+            </div>
           </div>
         </div>
-
-        {/* Category label */}
-        {category !== "All" && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2">
-            <span className="text-xs font-semibold uppercase tracking-wider text-sky-600 bg-sky-100 px-3 py-1 rounded-full">
-              {category} — {filtered.length} services
-            </span>
-          </motion.div>
-        )}
 
         {/* Services Grid / List */}
         <AnimatePresence mode="wait">
@@ -138,7 +136,7 @@ export default function ServicesSection() {
             animate="show"
             className={
               view === "grid"
-                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5"
                 : "flex flex-col gap-3"
             }
           >
@@ -164,64 +162,67 @@ export default function ServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mt-10 rounded-2xl overflow-hidden shadow-lg border border-blue-100"
+          className="mt-6 sm:mt-10 rounded-2xl overflow-hidden shadow-lg border border-blue-100"
         >
-          <div className="bg-[#0c4a6e] px-6 py-5 text-white">
-            <h2 className="text-xl font-bold">Get In Touch</h2>
-            <p className="text-sky-200 text-sm mt-1">Reach out for quotes, enquiries or project discussions</p>
+          <div className="bg-[#0c4a6e] px-4 sm:px-6 py-4 sm:py-5 text-white">
+            <h2 className="text-lg sm:text-xl font-bold">Get In Touch</h2>
+            <p className="text-sky-200 text-xs sm:text-sm mt-1">Reach out for quotes, enquiries or project discussions</p>
           </div>
 
-          <div className="bg-white px-6 py-6">
-            <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center justify-between">
+          <div className="bg-white px-4 sm:px-6 py-4 sm:py-6">
+            <div className="flex flex-col gap-4">
               {/* Info */}
-              <div className="space-y-2 text-sm text-slate-600">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm text-slate-600">
                 <div className="flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-sky-500" />
-                  <span>{PHONE}</span>
+                  <Phone className="w-4 h-4 text-sky-500 flex-shrink-0" />
+                  <span>{PHONE_DISPLAY}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-sky-500" />
-                  <span className="break-all">{EMAIL}</span>
+                  <Mail className="w-4 h-4 text-sky-500 flex-shrink-0" />
+                  <span className="break-all text-xs sm:text-sm">{EMAIL}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-sky-500" />
+                  <MapPin className="w-4 h-4 text-sky-500 flex-shrink-0" />
                   <span>{LOCATION}</span>
                 </div>
               </div>
 
               {/* Action buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 flex-shrink-0">
+              <div className="grid grid-cols-3 gap-2 sm:flex sm:flex-row sm:gap-3">
                 <a
                   href={`tel:${PHONE_RAW}`}
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#0c4a6e] text-white text-sm font-semibold hover:bg-[#0e5a80] transition-colors shadow"
+                  className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-5 py-2.5 rounded-xl bg-[#0c4a6e] text-white text-xs sm:text-sm font-semibold hover:bg-[#0e5a80] active:scale-95 transition-all shadow"
                 >
                   <Phone className="w-4 h-4" />
-                  Call Now
+                  <span>Call Now</span>
                 </a>
                 <a
                   href={`mailto:${EMAIL}`}
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-sky-500 text-white text-sm font-semibold hover:bg-sky-600 transition-colors shadow"
+                  className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-5 py-2.5 rounded-xl bg-sky-500 text-white text-xs sm:text-sm font-semibold hover:bg-sky-600 active:scale-95 transition-all shadow"
                 >
                   <Mail className="w-4 h-4" />
-                  Send Email
+                  <span>Email</span>
                 </a>
                 <a
                   href={`https://wa.me/${PHONE_RAW}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#25d366] text-white text-sm font-semibold hover:bg-[#20bd5a] transition-colors shadow"
+                  className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-2 sm:px-5 py-2.5 rounded-xl bg-[#25d366] text-white text-xs sm:text-sm font-semibold hover:bg-[#20bd5a] active:scale-95 transition-all shadow"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  WhatsApp
+                  <span>WhatsApp</span>
                 </a>
               </div>
             </div>
           </div>
         </motion.div>
+
+        {/* Bottom spacer so FAB doesn't overlap content */}
+        <div className="h-20" />
       </main>
 
-      {/* Floating WhatsApp */}
-      <FloatingWhatsApp phone={PHONE_RAW} />
+      {/* Floating Buttons (WhatsApp + Phone) */}
+      <FloatingButtons phone={PHONE_RAW} />
     </div>
   );
 }
