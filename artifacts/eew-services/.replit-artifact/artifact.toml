@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "EEW Services"
+version = "1.0.0"
+id = "artifacts/eew-services"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19304
+
+[services.development]
+run = "pnpm --filter @workspace/eew-services run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/eew-services", "run", "build" ]
+publicDir = "artifacts/eew-services/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19304"
+BASE_PATH = "/"

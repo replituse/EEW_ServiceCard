@@ -1,0 +1,138 @@
+You are a senior frontend developer and UI/UX designer.
+
+Create a professional "Services Section" component for an Electrical Engineering company (EEW - Electrical Engineering Works).
+
+⚙️ TECH STACK:
+- React (Vite)
+- Tailwind CSS
+- Framer Motion (for smooth animations)
+- Lucide Icons
+
+🎨 DESIGN STYLE:
+- Clean, modern, minimal
+- Theme: WHITE + LIGHT BLUE + subtle gradients
+- Use soft shadows, rounded cards, glass effect (optional)
+- Maintain high readability and professional look
+
+📌 SECTION STRUCTURE:
+
+1️⃣ HEADER:
+- Title: "Our Services"
+- Subtitle: "Comprehensive Electrical Engineering Solutions"
+- Small EEW logo on right side
+
+2️⃣ VIEW TOGGLE:
+- Toggle buttons:
+   [ Grid View ] [ List View ]
+- Active state highlight (light blue background)
+- Smooth animation when switching
+
+3️⃣ SERVICES DATA:
+
+🔹 Expertise:
+- GA Drawing
+- IGA Drawing
+- Power Wiring Drawing
+- Control Wiring Drawing
+- Terminal Drawing
+- Layout Drawing
+- Panel Costing
+- Quotation with BOQ
+
+🔹 Panel Types:
+- LT Panel
+- MCC Panel
+- PCC Panel
+- Heater Panel
+- AHU Panel
+- Relay Control Panel
+- APFC Panel
+
+4️⃣ GRID VIEW:
+- 2 or 3 column responsive layout
+- Each card contains:
+   - Icon (electrical themed)
+   - Service Title
+   - Short description (auto-generate if needed)
+- Hover effects:
+   - Lift up
+   - Glow border (light blue)
+   - Icon animation
+
+5️⃣ LIST VIEW:
+- Full width horizontal cards
+- Left: Icon
+- Center: Service details
+- Right: "Contact" button
+- Divider lines between items
+
+6️⃣ SERVICE CARD DESIGN:
+- White background
+- Light blue border or accent
+- Rounded corners (xl)
+- Shadow-sm → shadow-lg on hover
+- Padding: comfortable spacing
+
+7️⃣ CONTACT SECTION (INSIDE SERVICES):
+- Sticky or bottom section
+- Show:
+   📞 +91 7767062794
+   📧 electricalsengineeringworks@gmail.com
+   📍 Thane, Maharashtra
+
+- Add:
+   - Call button
+   - Email button
+   - WhatsApp button (opens chat)
+
+8️⃣ WHATSAPP BUTTON:
+- Floating bottom right
+- Green with pulse animation
+- Opens:
+  https://wa.me/917767062794
+
+9️⃣ ANIMATIONS:
+- Fade-up on scroll
+- Smooth toggle transition (grid ↔ list)
+- Card hover micro-interactions
+
+🔟 RESPONSIVENESS:
+- Mobile: 1 column
+- Tablet: 2 columns
+- Desktop: 3 columns
+
+🎯 BONUS FEATURES:
+- Search bar to filter services
+- Category filter (Expertise / Panel Types)
+- Scroll reveal animation
+
+📁 OUTPUT:
+- Component-based structure:
+   - ServicesSection.jsx
+   - ServiceCard.jsx
+   - ViewToggle.jsx
+- Clean reusable code
+- Fully responsive
+
+IMPORTANT:
+- Use the uploaded EEW logo properly
+- Keep UI clean, not overly flashy
+- Focus on clarity and professional look
+💡 UI STRUCTURE (Quick Preview Idea)
+[ Our Services              (Logo) ]
+
+   [Grid] [List]
+
+ ┌───────────────┐   ┌───────────────┐
+ │ ⚡ GA Drawing │   │ ⚡ LT Panel    │
+ │ Description   │   │ Description   │
+ └───────────────┘   └───────────────┘
+
+(List View ↓)
+
+⚡ GA Drawing        | Description        | [Contact]
+---------------------------------------------------
+⚡ LT Panel          | Description        | [Contact]
+
+📞 Contact Bar:
+Call | Email | WhatsApp
